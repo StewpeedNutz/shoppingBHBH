@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}Customer Signup{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <h3>Customer Signup
+                <form action="/signup" method="post" class="shadow p-4">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5 form-control-sm centered-message" {% endif %}>{{message}}</p>
+
+                    {% endfor %}
+                    {% endif %}
+
+                    {% csrf_token %}
+
+                    {% if error %}
+                    <div class="alert alert-danger form-control-sm centered-message" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
+
+
+                    <div class="form group">
+                        <label for="name" class="form-control-sm">Full Name</label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Please enter your full name"></input>
+                    </div>
+
+                    <div class="form group">
+                        <label for="username" class="form-control-sm">User Name</label>
+                        <input type="text" name="username" id="username" value="{{value.username}}" class="form-control" placeholder="Create a new username"></input>
+                    </div>
+
+                    <div class="form group">
+                        <label for="email" class="form-control-sm">Email Address</label>
+                        <input type="text" name="email" id="email" value="{{value.email}}" class="form-control" placeholder="Please enter your email address"></input>
+                    </div>
+
+                    <div class="form group">
+                        <label for="phone" class="form-control-sm">Phone Number</label>
+                        <input type="text" name="phone" id="phone" value="{{value.phone}}" class="form-control" placeholder="Please enter your phone number" maxlength="13"></input>
+                    </div>
+                    <div class="form group">
+                        <span class="form-text form-control-sm" style="font-size: 0.75rem; font-weight: normal; color: grey;">Eg. 017-711-7111 </span>
+                    </div>
+                    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const phoneInput = document.getElementById('phone');
+
+        phoneInput.addEventListener('input', function (event) {
+            let input = event.target.value.replace(/\D/g, ''); // Remove non-digit characters
+            if (input.length > 3) {
+                input = input.slice(0, 3) + '-' + input.slice(3);
+            }
+            if (input.length > 7) {
+                input = input.slice(0, 7) + '-' + input.slice(7);
+            }
+            if (input.length > 13) {
+                input = input.slice(0, 13); // Limit input length to 12 characters (including hyphens)
+            }
+            event.target.value = input;
+        });
+
+        phoneInput.addEventListener('keypress', function (event) {
+            // Prevent non-digit input
+            if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+                    <div class="form group">
+                        <label for="password" class="form-control-sm">Password</label>
+                        <input type="text" name="password" id="password" class="form-control" placeholder="Create a strong password"></input>
+                    </div>
+                    <div class="form group">
+                        <span class="form-text form-control-sm" style="font-size: 0.75rem; font-weight: normal; color: grey;">Eg. #YeyA123$! </span>
+                    </div>
+
+                    <div class="form group pt-4">
+                        <input class="btn-sm btn-info" type="submit" value="Signup"></input>
+                    </div>
+                </form>
+                </h3>
+                <div class="container mt-1.5">
+        <div class="text-center">
+            <span class="text-primary fw-bold" style="display: inline; font-size: 1rem;">Already have an account? </span>
+            <a href="/login" class="text-danger" style="display: inline; font-size: 1.25rem;">Login</a>
+        </div>
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock %}

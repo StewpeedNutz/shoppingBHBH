@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Customer Login{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <h3>Customer Login
+                <form action="/login" method="post" class="shadow p-4">
+
+
+                    {% csrf_token %}
+
+                    {% if error %}
+                    <div class="alert alert-danger form-control-sm centered-message" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
+
+
+                    <div class="form-group">
+                        <label for="username_or_email" class="form-control-sm">Username or Email</label>
+                        <input type="text" name="username_or_email" id="username_or_email" value="{{value.username_or_email}}" class="form-control" placeholder="Please enter your username or email"></input>
+                    </div>
+
+
+                    <div class="form group">
+                        <label for="password" class="form-control-sm">Password</label>
+                        <input type="text" name="password" id="password" class="form-control" placeholder="Please enter your password"></input>
+                    </div>
+
+
+                    <div class="form group pt-4">
+                        <input class="btn-sm btn-info" type="submit" value="Login"></input>
+                    </div>
+                </form>
+                </h3>
+                <div class="container mt-1.5">
+        <div class="text-center">
+            <span class="text-primary fw-bold" style="display: inline; font-size: 1rem;">Don't have an account? </span>
+            <a href="/signup" class="text-danger" style="display: inline; font-size: 1.25rem;">Sign up for BookHive</a>
+        </div>
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock %}
